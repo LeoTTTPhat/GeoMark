@@ -1,0 +1,28 @@
+# Stage 8 (revision 2) additions on top of rev1.yaml (which inherits full.yaml). Same out_dir (results/).
+inherit: rev1.yaml
+name: rev2
+
+wm:
+  k0_1r:          {method: kgw, gamma: 0.25, delta: 2.0, delta_mid: 0.0, k: 0, bin_min: 30, two_res: false}           # factorial: bin only, single resolution
+  exact_bin_2r:   {method: exact_kgw_bin, gamma: 0.25, delta: 2.0, delta_mid: 1.0, two_res: true, bin_min: 30}       # factorial: exact + bin, two resolutions
+  exact_bin_eosn: {method: exact_kgw_bin, gamma: 0.25, delta: 2.0, two_res: false, bin_min: 30, eos_neutral: true}   # factorial: exact + bin, EOS-neutral
+  gm_kgw_sn:      {method: kgw, gamma: 0.25, delta: 2.0, delta_mid: 1.0, k: 1, bin_min: 30, ctx: coarse, mask: M0, eos_neutral: true, adj_neutral: true}  # step-neutral
+
+releases:
+  rev2_fact:     {gens: [gpt_porto_r9_s0], wm: [k0_1r, exact_bin_2r, exact_bin_eosn], keys: [0, 1, 2], seeds: [0], n: 5000}
+  rev2_sn:       {gens: [gpt_porto_r9_s0, gpt_geolife_r9_s0], wm: [gm_kgw_sn], keys: [0, 1, 2], seeds: [0], n: 5000}
+  rev2_manykey:  {gens: [gpt_porto_r9_s0], wm: [exact_kgw_bin, a_k0, gm_kgw_eosn, gm_kgw_sn], keys: [300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322, 323, 324, 325, 326, 327, 328, 329, 330, 331, 332, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349], seeds: [0], n: 1000}
+  rev2_steal:    {gens: [gpt_porto_r9_s0], wm: [a_k0, exact_kgw_bin, gm_kgw_eosn, gm_kgw_sn, gm_kgw_k2], keys: [0], seeds: [10], n: 101000}
+  rev2_llm_gl:   {gens: [qwen15_geolife_r9], wm: [gm_kgw_eosn, gm_kgw_sn], keys: [0, 1, 2], seeds: [0], n: 3300}
+  rev2_llm_po:   {gens: [qwen15_porto_r9], wm: [gm_kgw_sn], keys: [0, 1, 2], seeds: [0], n: 3300}
+
+eval:
+  attack_sets:
+    rev2_fact: [none, noise30, noise100, down3, crop50, mm, mmrs, noise30+mm, retime60]
+    rev2_sn: [none, noise10, noise30, noise100, down2, down3, down5, retime15, retime60, crop25, crop50, splice30, mm, mmrs, noise30+mm]
+    rev2_manykey: [none, mm]
+    rev2_llm_gl: [none, noise10, noise30, noise100, down2, down3, down5, retime15, retime60, crop25, crop50, splice30, mm, mmrs, noise30+mm]
+    rev2_llm_po: [none, noise10, noise30, noise100, down2, down3, down5, retime15, retime60, crop25, crop50, splice30, mm, mmrs, noise30+mm]
+  null_schemes_extra:
+    porto_r9: [a_g50_d4, a_k0, gm_kgw_k2, a_k3, a_bin0, a_bin120, a_1r, a_ctxmid, a_gum_M0, a_gum_k2, a_gum_ctxmid, exact_kgw_bin, exact_kgw_d1, gm_gumbel_m2, k0_1r, exact_bin_2r, gm_kgw_sn]
+    geolife_r9: [a_g50_d4, gm_kgw_k2, a_gum_M0, gm_gumbel_m2, gm_kgw_sn]

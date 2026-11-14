@@ -1,0 +1,24 @@
+{
+ "gen": "gpt_geolife_r9_s0",
+ "wm": "a_g25_d4",
+ "scheme": {
+  "method": "kgw",
+  "res": 9,
+  "gamma": 0.25,
+  "delta": 4.0,
+  "delta_mid": 2.0,
+  "k": 1,
+  "bin_min": 30,
+  "ctx": "coarse",
+  "mask": "M0",
+  "two_res": true,
+  "coarse_off": 2
+ },
+ "key": 0,
+ "seed": 2,
+ "n": 5000,
+ "decode": "uniform",
+ "dataset": "geolife",
+ "res": 9,
+ "sec": 108.47755908966064
+}

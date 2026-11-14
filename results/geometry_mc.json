@@ -1,0 +1,218 @@
+[
+ {
+  "res": 6,
+  "edge_m": 3724.532667,
+  "kind": "gauss_sigma",
+  "value_m": 10,
+  "empirical": 0.002075,
+  "closed_form": 0.0024736465331250683,
+  "worst_case_bound": null
+ },
+ {
+  "res": 6,
+  "edge_m": 3724.532667,
+  "kind": "gauss_sigma",
+  "value_m": 30,
+  "empirical": 0.00685,
+  "closed_form": 0.007420939599375205,
+  "worst_case_bound": null
+ },
+ {
+  "res": 6,
+  "edge_m": 3724.532667,
+  "kind": "gauss_sigma",
+  "value_m": 100,
+  "empirical": 0.0236,
+  "closed_form": 0.024736465331250682,
+  "worst_case_bound": null
+ },
+ {
+  "res": 6,
+  "edge_m": 3724.532667,
+  "kind": "fixed_d",
+  "value_m": 10,
+  "empirical": 0.00165,
+  "closed_form": 0.0019736843776640258,
+  "worst_case_bound": 0.006200512341374246
+ },
+ {
+  "res": 6,
+  "edge_m": 3724.532667,
+  "kind": "fixed_d",
+  "value_m": 30,
+  "empirical": 0.00605,
+  "closed_form": 0.0059210531329920765,
+  "worst_case_bound": 0.018601537024122736
+ },
+ {
+  "res": 6,
+  "edge_m": 3724.532667,
+  "kind": "fixed_d",
+  "value_m": 100,
+  "empirical": 0.017775,
+  "closed_form": 0.019736843776640256,
+  "worst_case_bound": 0.06200512341374245
+ },
+ {
+  "res": 7,
+  "edge_m": 1406.475763,
+  "kind": "gauss_sigma",
+  "value_m": 10,
+  "empirical": 0.005875,
+  "closed_form": 0.006550541119588149,
+  "worst_case_bound": null
+ },
+ {
+  "res": 7,
+  "edge_m": 1406.475763,
+  "kind": "gauss_sigma",
+  "value_m": 30,
+  "empirical": 0.018475,
+  "closed_form": 0.019651623358764445,
+  "worst_case_bound": null
+ },
+ {
+  "res": 7,
+  "edge_m": 1406.475763,
+  "kind": "gauss_sigma",
+  "value_m": 100,
+  "empirical": 0.061275,
+  "closed_form": 0.06550541119588148,
+  "worst_case_bound": null
+ },
+ {
+  "res": 7,
+  "edge_m": 1406.475763,
+  "kind": "fixed_d",
+  "value_m": 10,
+  "empirical": 0.004425,
+  "closed_form": 0.0052265756242236994,
+  "worst_case_bound": 0.016419771584492662
+ },
+ {
+  "res": 7,
+  "edge_m": 1406.475763,
+  "kind": "fixed_d",
+  "value_m": 30,
+  "empirical": 0.015475,
+  "closed_form": 0.015679726872671097,
+  "worst_case_bound": 0.04925931475347798
+ },
+ {
+  "res": 7,
+  "edge_m": 1406.475763,
+  "kind": "fixed_d",
+  "value_m": 100,
+  "empirical": 0.050225,
+  "closed_form": 0.05226575624223699,
+  "worst_case_bound": 0.1641977158449266
+ },
+ {
+  "res": 8,
+  "edge_m": 531.41401,
+  "kind": "gauss_sigma",
+  "value_m": 10,
+  "empirical": 0.01715,
+  "closed_form": 0.0173370990336435,
+  "worst_case_bound": null
+ },
+ {
+  "res": 8,
+  "edge_m": 531.41401,
+  "kind": "gauss_sigma",
+  "value_m": 30,
+  "empirical": 0.04835,
+  "closed_form": 0.05201129710093049,
+  "worst_case_bound": null
+ },
+ {
+  "res": 8,
+  "edge_m": 531.41401,
+  "kind": "gauss_sigma",
+  "value_m": 100,
+  "empirical": 0.16125,
+  "closed_form": 0.17337099033643497,
+  "worst_case_bound": null
+ },
+ {
+  "res": 8,
+  "edge_m": 531.41401,
+  "kind": "fixed_d",
+  "value_m": 10,
+  "empirical": 0.01335,
+  "closed_form": 0.013833003648054423,
+  "worst_case_bound": 0.04345766263780858
+ },
+ {
+  "res": 8,
+  "edge_m": 531.41401,
+  "kind": "fixed_d",
+  "value_m": 30,
+  "empirical": 0.039275,
+  "closed_form": 0.04149901094416327,
+  "worst_case_bound": 0.13037298791342575
+ },
+ {
+  "res": 8,
+  "edge_m": 531.41401,
+  "kind": "fixed_d",
+  "value_m": 100,
+  "empirical": 0.130675,
+  "closed_form": 0.13833003648054423,
+  "worst_case_bound": 0.4345766263780858
+ },
+ {
+  "res": 9,
+  "edge_m": 200.786148,
+  "kind": "gauss_sigma",
+  "value_m": 10,
+  "empirical": 0.04305,
+  "closed_form": 0.04588552253731973,
+  "worst_case_bound": null
+ },
+ {
+  "res": 9,
+  "edge_m": 200.786148,
+  "kind": "gauss_sigma",
+  "value_m": 30,
+  "empirical": 0.1277,
+  "closed_form": 0.1376565676119592,
+  "worst_case_bound": null
+ },
+ {
+  "res": 9,
+  "edge_m": 200.786148,
+  "kind": "gauss_sigma",
+  "value_m": 100,
+  "empirical": 0.404825,
+  "closed_form": 0.4588552253731973,
+  "worst_case_bound": null
+ },
+ {
+  "res": 9,
+  "edge_m": 200.786148,
+  "kind": "fixed_d",
+  "value_m": 10,
+  "empirical": 0.03475,
+  "closed_form": 0.03661134999689933,
+  "worst_case_bound": 0.11501794818826364
+ },
+ {
+  "res": 9,
+  "edge_m": 200.786148,
+  "kind": "fixed_d",
+  "value_m": 30,
+  "empirical": 0.104575,
+  "closed_form": 0.109834049990698,
+  "worst_case_bound": 0.3450538445647909
+ },
+ {
+  "res": 9,
+  "edge_m": 200.786148,
+  "kind": "fixed_d",
+  "value_m": 100,
+  "empirical": 0.3286,
+  "closed_form": 0.3661134999689933,
+  "worst_case_bound": 1.0
+ }
+]

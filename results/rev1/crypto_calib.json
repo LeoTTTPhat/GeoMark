@@ -1,0 +1,48 @@
+{
+ "porto_r9|gm_kgw": {
+  "n": 100000,
+  "ks_p": 0.34655761529643003,
+  "fpr_1e2": 0.00979,
+  "fpr_1e3": 0.00092,
+  "pooled_n": 20000,
+  "pooled_fpr_1e3": 0.001,
+  "pooled_fpr_1e2": 0.00785
+ },
+ "porto_r9|gm_gumbel": {
+  "n": 100000,
+  "ks_p": 0.6712172268349895,
+  "fpr_1e2": 0.00963,
+  "fpr_1e3": 0.00103,
+  "pooled_n": 20000,
+  "pooled_fpr_1e3": 0.0007,
+  "pooled_fpr_1e2": 0.00925
+ },
+ "geolife_r9|gm_kgw": {
+  "n": 100000,
+  "ks_p": 0.18812962056576676,
+  "fpr_1e2": 0.01002,
+  "fpr_1e3": 0.00095,
+  "pooled_n": 20000,
+  "pooled_fpr_1e3": 0.00065,
+  "pooled_fpr_1e2": 0.0086
+ },
+ "geolife_r9|gm_gumbel": {
+  "n": 100000,
+  "ks_p": 0.656100671772567,
+  "fpr_1e2": 0.01042,
+  "fpr_1e3": 0.00111,
+  "pooled_n": 20000,
+  "pooled_fpr_1e3": 0.00095,
+  "pooled_fpr_1e2": 0.0101
+ },
+ "timing_fast": {
+  "traces": 2000,
+  "sec": 0.3310890197753906,
+  "traces_per_s": 6040.671482723261
+ },
+ "timing_crypto": {
+  "traces": 2000,
+  "sec": 0.29279589653015137,
+  "traces_per_s": 6830.696822262484
+ }
+}

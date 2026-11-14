@@ -1,0 +1,91 @@
+{
+ "trips": 20000,
+ "scored_positions": 270031,
+ "source": "train.csv",
+ "by_k_bin": [
+  {
+   "k": 0,
+   "bin_min": 0,
+   "distinct_seeds": 1,
+   "median_obs_per_seed": 270031.0,
+   "top100_coverage": 1.0
+  },
+  {
+   "k": 0,
+   "bin_min": 30,
+   "distinct_seeds": 48,
+   "median_obs_per_seed": 5602.5,
+   "top100_coverage": 1.0
+  },
+  {
+   "k": 0,
+   "bin_min": 120,
+   "distinct_seeds": 12,
+   "median_obs_per_seed": 21430.0,
+   "top100_coverage": 1.0
+  },
+  {
+   "k": 1,
+   "bin_min": 0,
+   "distinct_seeds": 33,
+   "median_obs_per_seed": 972.0,
+   "top100_coverage": 1.0
+  },
+  {
+   "k": 1,
+   "bin_min": 30,
+   "distinct_seeds": 1130,
+   "median_obs_per_seed": 62.5,
+   "top100_coverage": 0.47155326610648407
+  },
+  {
+   "k": 1,
+   "bin_min": 120,
+   "distinct_seeds": 331,
+   "median_obs_per_seed": 157.0,
+   "top100_coverage": 0.8907125478185838
+  },
+  {
+   "k": 2,
+   "bin_min": 0,
+   "distinct_seeds": 295,
+   "median_obs_per_seed": 13.0,
+   "top100_coverage": 0.9920194348056335
+  },
+  {
+   "k": 2,
+   "bin_min": 30,
+   "distinct_seeds": 4862,
+   "median_obs_per_seed": 19.0,
+   "top100_coverage": 0.21886376008680486
+  },
+  {
+   "k": 2,
+   "bin_min": 120,
+   "distinct_seeds": 1747,
+   "median_obs_per_seed": 27.0,
+   "top100_coverage": 0.4568290307409149
+  },
+  {
+   "k": 3,
+   "bin_min": 0,
+   "distinct_seeds": 1004,
+   "median_obs_per_seed": 8.0,
+   "top100_coverage": 0.8361928815580434
+  },
+  {
+   "k": 3,
+   "bin_min": 30,
+   "distinct_seeds": 11690,
+   "median_obs_per_seed": 8.0,
+   "top100_coverage": 0.21313478822801826
+  },
+  {
+   "k": 3,
+   "bin_min": 120,
+   "distinct_seeds": 4844,
+   "median_obs_per_seed": 11.0,
+   "top100_coverage": 0.3624769008002785
+  }
+ ]
+}

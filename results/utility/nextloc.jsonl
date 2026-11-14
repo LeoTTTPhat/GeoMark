@@ -1,0 +1,39 @@
+{"key": "gpt_porto_r9_s0/real", "gen": "gpt_porto_r9_s0", "rid": "real", "acc1": 0.6950331883726253, "acc5": 0.9642252231631953, "n_train": 20000, "n_test": 3000}
+{"key": "gpt_porto_r9_s0/none__k0__s0", "gen": "gpt_porto_r9_s0", "rid": "none__k0__s0", "acc1": 0.5908903639276722, "acc5": 0.8811169604028382, "n_train": 10000, "n_test": 3000}
+{"key": "gpt_porto_r9_s0/gm_kgw__k0__s0", "gen": "gpt_porto_r9_s0", "rid": "gm_kgw__k0__s0", "acc1": 0.5804074158846418, "acc5": 0.9090409704737926, "n_train": 10000, "n_test": 3000}
+{"key": "gpt_porto_r9_s0/gm_gumbel__k0__s0", "gen": "gpt_porto_r9_s0", "rid": "gm_gumbel__k0__s0", "acc1": 0.4554818036163882, "acc5": 0.6898832684824903, "n_train": 10000, "n_test": 3000}
+{"key": "gpt_porto_r9_s0/exact_kgw__k0__s0", "gen": "gpt_porto_r9_s0", "rid": "exact_kgw__k0__s0", "acc1": 0.517944609750515, "acc5": 0.8473105973907072, "n_train": 10000, "n_test": 3000}
+{"key": "gpt_porto_r9_s0/posthoc__k0__s0", "gen": "gpt_porto_r9_s0", "rid": "posthoc__k0__s0", "acc1": 0.0016937514305333029, "acc5": 0.057404440375371936, "n_train": 1933, "n_test": 3000}
+{"key": "gpt_geolife_r9_s0/real", "gen": "gpt_geolife_r9_s0", "rid": "real", "acc1": 0.6062978547285646, "acc5": 0.8962026626198524, "n_train": 19472, "n_test": 2961}
+{"key": "gpt_geolife_r9_s0/none__k0__s0", "gen": "gpt_geolife_r9_s0", "rid": "none__k0__s0", "acc1": 0.4142063875284542, "acc5": 0.7246154376767607, "n_train": 9990, "n_test": 2961}
+{"key": "gpt_geolife_r9_s0/gm_kgw__k0__s0", "gen": "gpt_geolife_r9_s0", "rid": "gm_kgw__k0__s0", "acc1": 0.3720597364972063, "acc5": 0.7583120645650824, "n_train": 9994, "n_test": 2961}
+{"key": "gpt_geolife_r9_s0/gm_gumbel__k0__s0", "gen": "gpt_geolife_r9_s0", "rid": "gm_gumbel__k0__s0", "acc1": 0.32987859557149757, "acc5": 0.57249775815686, "n_train": 10000, "n_test": 2961}
+{"key": "gpt_porto_r9_s0/none__k0__s1", "gen": "gpt_porto_r9_s0", "rid": "none__k0__s1", "cap": 20000, "acc1": 0.5940489814602884, "acc5": 0.8777065690089265, "n_train": 10000, "n_test": 3000}
+{"key": "gpt_porto_r9_s0/none__k0__s2", "gen": "gpt_porto_r9_s0", "rid": "none__k0__s2", "cap": 20000, "acc1": 0.5927214465552758, "acc5": 0.877935454337377, "n_train": 10000, "n_test": 3000}
+{"key": "gpt_porto_r9_s0/gm_kgw__k1__s1", "gen": "gpt_porto_r9_s0", "rid": "gm_kgw__k1__s1", "cap": 20000, "acc1": 0.5843900205996796, "acc5": 0.9087891966124971, "n_train": 10000, "n_test": 3000}
+{"key": "gpt_porto_r9_s0/gm_kgw__k2__s2", "gen": "gpt_porto_r9_s0", "rid": "gm_kgw__k2__s2", "cap": 20000, "acc1": 0.5843900205996796, "acc5": 0.9070038910505837, "n_train": 10000, "n_test": 3000}
+{"key": "gpt_porto_r9_s0/gm_gumbel__k1__s1", "gen": "gpt_porto_r9_s0", "rid": "gm_gumbel__k1__s1", "cap": 20000, "acc1": 0.4048065918974594, "acc5": 0.6212863355458915, "n_train": 10000, "n_test": 3000}
+{"key": "gpt_porto_r9_s0/gm_gumbel__k2__s2", "gen": "gpt_porto_r9_s0", "rid": "gm_gumbel__k2__s2", "cap": 20000, "acc1": 0.44193179217212175, "acc5": 0.6724422064545663, "n_train": 10000, "n_test": 3000}
+{"key": "gpt_porto_r9_s0/exact_kgw__k1__s1", "gen": "gpt_porto_r9_s0", "rid": "exact_kgw__k1__s1", "cap": 20000, "acc1": 0.5285877775234608, "acc5": 0.8597161821927215, "n_train": 10000, "n_test": 3000}
+{"key": "gpt_porto_r9_s0/exact_kgw__k2__s2", "gen": "gpt_porto_r9_s0", "rid": "exact_kgw__k2__s2", "cap": 20000, "acc1": 0.5054474708171206, "acc5": 0.8603799496452278, "n_train": 10000, "n_test": 3000}
+{"key": "gpt_porto_r9_s0/posthoc_big__k0__s0", "gen": "gpt_porto_r9_s0", "rid": "posthoc_big__k0__s0", "cap": 20000, "acc1": 0.4509269855802243, "acc5": 0.792835889219501, "n_train": 9642, "n_test": 3000}
+{"key": "gpt_geolife_r9_s0/exact_kgw__k0__s0", "gen": "gpt_geolife_r9_s0", "rid": "exact_kgw__k0__s0", "cap": 20000, "acc1": 0.3624887907843002, "acc5": 0.708819066013658, "n_train": 9993, "n_test": 2961}
+{"key": "gpt_geolife_r9_s0/none__k0__s1", "gen": "gpt_geolife_r9_s0", "rid": "none__k0__s1", "cap": 20000, "acc1": 0.41301648616955233, "acc5": 0.7187176657239429, "n_train": 9992, "n_test": 2961}
+{"key": "gpt_geolife_r9_s0/none__k0__s2", "gen": "gpt_geolife_r9_s0", "rid": "none__k0__s2", "cap": 20000, "acc1": 0.4093088225150031, "acc5": 0.723580740842933, "n_train": 9997, "n_test": 2961}
+{"key": "gpt_geolife_r9_s0/gm_kgw__k1__s1", "gen": "gpt_geolife_r9_s0", "rid": "gm_kgw__k1__s1", "cap": 20000, "acc1": 0.37688832172173553, "acc5": 0.7517762295647376, "n_train": 9994, "n_test": 2961}
+{"key": "gpt_geolife_r9_s0/gm_kgw__k2__s2", "gen": "gpt_geolife_r9_s0", "rid": "gm_kgw__k2__s2", "cap": 20000, "acc1": 0.37530178657653307, "acc5": 0.7540525625991584, "n_train": 9997, "n_test": 2961}
+{"key": "gpt_geolife_r9_s0/gm_gumbel__k1__s1", "gen": "gpt_geolife_r9_s0", "rid": "gm_gumbel__k1__s1", "cap": 20000, "acc1": 0.2731427191832793, "acc5": 0.49001517555356283, "n_train": 10000, "n_test": 2961}
+{"key": "gpt_geolife_r9_s0/gm_gumbel__k2__s2", "gen": "gpt_geolife_r9_s0", "rid": "gm_gumbel__k2__s2", "cap": 20000, "acc1": 0.2849727529833759, "acc5": 0.4882389459888253, "n_train": 10000, "n_test": 2961}
+{"key": "gpt_geolife_r9_s0/exact_kgw__k1__s1", "gen": "gpt_geolife_r9_s0", "rid": "exact_kgw__k1__s1", "cap": 20000, "acc1": 0.3477098710077947, "acc5": 0.6941436159205353, "n_train": 9997, "n_test": 2961}
+{"key": "gpt_geolife_r9_s0/exact_kgw__k2__s2", "gen": "gpt_geolife_r9_s0", "rid": "exact_kgw__k2__s2", "cap": 20000, "acc1": 0.36954197420155893, "acc5": 0.723132372214941, "n_train": 9998, "n_test": 2961}
+{"key": "gpt_geolife_r9_s0/posthoc_big__k0__s0", "gen": "gpt_geolife_r9_s0", "rid": "posthoc_big__k0__s0", "cap": 20000, "acc1": 0.17670897427053872, "acc5": 0.5082258398289301, "n_train": 8455, "n_test": 2961}
+{"key": "gpt_porto_r9_s0/none__k0__s0@5000", "gen": "gpt_porto_r9_s0", "rid": "none__k0__s0", "cap": 5000, "acc1": 0.2985580224307622, "acc5": 0.6291599908445868, "n_train": 5000, "n_test": 3000}
+{"key": "gpt_porto_r9_s0/gm_kgw__k0__s0@5000", "gen": "gpt_porto_r9_s0", "rid": "gm_kgw__k0__s0", "cap": 5000, "acc1": 0.31151293202105745, "acc5": 0.663630121309224, "n_train": 5000, "n_test": 3000}
+{"key": "gpt_porto_r9_s0/a_g25_d4__k0__s0", "gen": "gpt_porto_r9_s0", "rid": "a_g25_d4__k0__s0", "cap": 20000, "acc1": 0.16452277409018082, "acc5": 0.4946669718471046, "n_train": 5000, "n_test": 3000}
+{"key": "gpt_porto_r9_s0/a_g25_d4__k1__s1", "gen": "gpt_porto_r9_s0", "rid": "a_g25_d4__k1__s1", "cap": 20000, "acc1": 0.19771114671549553, "acc5": 0.5419317921721217, "n_train": 5000, "n_test": 3000}
+{"key": "gpt_porto_r9_s0/a_g25_d4__k2__s2", "gen": "gpt_porto_r9_s0", "rid": "a_g25_d4__k2__s2", "cap": 20000, "acc1": 0.2032272831311513, "acc5": 0.5583199816891737, "n_train": 4999, "n_test": 3000}
+{"key": "gpt_porto_r9_s0/a_g50_d4__k0__s0", "gen": "gpt_porto_r9_s0", "rid": "a_g50_d4__k0__s0", "cap": 20000, "acc1": 0.2602883955138476, "acc5": 0.6756923781185626, "n_train": 5000, "n_test": 3000}
+{"key": "gpt_porto_r9_s0/a_g50_d4__k1__s1", "gen": "gpt_porto_r9_s0", "rid": "a_g50_d4__k1__s1", "cap": 20000, "acc1": 0.2802014190890364, "acc5": 0.7006637674525062, "n_train": 5000, "n_test": 3000}
+{"key": "gpt_porto_r9_s0/a_g50_d4__k2__s2", "gen": "gpt_porto_r9_s0", "rid": "a_g50_d4__k2__s2", "cap": 20000, "acc1": 0.2821469443808652, "acc5": 0.6797436484321355, "n_train": 5000, "n_test": 3000}
+{"key": "gpt_porto_r9_s0/none__k0__s1@5000", "gen": "gpt_porto_r9_s0", "rid": "none__k0__s1", "cap": 5000, "acc1": 0.2921492332341497, "acc5": 0.6344930189974822, "n_train": 5000, "n_test": 3000}
+{"key": "gpt_porto_r9_s0/none__k0__s2@5000", "gen": "gpt_porto_r9_s0", "rid": "none__k0__s2", "cap": 5000, "acc1": 0.2796978713664454, "acc5": 0.6175097276264592, "n_train": 5000, "n_test": 3000}

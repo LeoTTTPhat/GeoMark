@@ -1,0 +1,4 @@
+# Stage 7: map-matching of 200 traces per key for the 50-key releases (key-level inference); mm only.
+inherit: rev1.yaml
+name: rev1_mm200
+mapmatch: {n: 200, prefixes: [mm]}

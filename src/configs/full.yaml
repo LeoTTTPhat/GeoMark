@@ -1,0 +1,221 @@
+# GeoMark full experiment matrix (PLAN.md Sec. 6). Paths are relative to the project folder.
+name: full
+out_dir: results
+data_dir: data/derived
+model_dir: models
+fig_dir: figures
+datasets: [porto, geolife]
+
+data:                       # E0
+  res: [8, 9, 10]
+  max_tok: 120              # cap collapsed r9 tokens per sequence (longer segments are split)
+  min_tok: 5
+  porto: {frac: 0.10, max_traces: 120000, min_pts: 10, dt: 15}
+  geolife: {dt: 5, gap_min: 20, min_pts: 10, max_traces: 60000}
+
+_gpt: &gpt {type: gpt, d_model: 384, n_layer: 6, n_head: 6, epochs: 6, batch: 128, lr: 6.0e-4, max_train: 100000, gen_batch: 512}
+generators:                 # E1
+  gpt_porto_r9_s0:   {<<: *gpt, dataset: porto, res: 9, train_seed: 0, max_len: 126}
+  gpt_porto_r9_s1:   {<<: *gpt, dataset: porto, res: 9, train_seed: 1, max_len: 126}
+  gpt_porto_r9_s2:   {<<: *gpt, dataset: porto, res: 9, train_seed: 2, max_len: 126}
+  gpt_porto_r8_s0:   {<<: *gpt, dataset: porto, res: 8, train_seed: 0, max_len: 126}
+  gpt_porto_r10_s0:  {<<: *gpt, dataset: porto, res: 10, train_seed: 0, max_len: 330, batch: 64, gen_batch: 256}
+  gpt_geolife_r9_s0: {<<: *gpt, dataset: geolife, res: 9, train_seed: 0, max_len: 126}
+  gpt_geolife_r8_s0: {<<: *gpt, dataset: geolife, res: 8, train_seed: 0, max_len: 126}
+  qwen15_porto_r9:   {type: qwen, base: Qwen/Qwen2.5-1.5B-Instruct, dataset: porto, res: 9, max_len: 126, max_train: 60000, epochs: 1,
+                      batch: 16, eff_batch: 32, lr: 3.0e-4, lora_r: 16, dtype: bfloat16, gen_workers: 1, gen_device: mps, gen_batch: 128, ckpt_every: 200}
+  qwen15_geolife_r9: {type: qwen, base: Qwen/Qwen2.5-1.5B-Instruct, dataset: geolife, res: 9, max_len: 126, max_train: 40000, epochs: 1,
+                      batch: 16, eff_batch: 32, lr: 3.0e-4, lora_r: 16, dtype: bfloat16, gen_workers: 1, gen_device: mps, gen_batch: 128, ckpt_every: 200}
+  # DESCOPED (PLAN.md Sec. 7 item 1; Stage-2 estimate 36.2 h > 36 h): qwen3b_porto_r9:   {type: qwen, base: Qwen/Qwen2.5-3B-Instruct, dataset: porto, res: 9, max_len: 126, max_train: 40000, epochs: 1,
+  #   batch: 8, eff_batch: 32, lr: 2.0e-4, lora_r: 16, dtype: bfloat16, gen_workers: 1, gen_device: mps, gen_batch: 64, ckpt_every: 200}
+
+wm:                         # watermark configurations (res is taken from the generator)
+  none:       {method: none}
+  exact_kgw:  {method: exact_kgw, gamma: 0.25, delta: 2.0, two_res: false}
+  gm_kgw:     {method: kgw, gamma: 0.25, delta: 2.0, delta_mid: 1.0, k: 1, bin_min: 30, ctx: coarse, mask: M0}
+  gm_gumbel:  {method: gumbel, k: 1, bin_min: 30, ctx: coarse, mask: M1}
+  gm_kgw_k2:  {method: kgw, gamma: 0.25, delta: 2.0, delta_mid: 1.0, k: 2, bin_min: 30, ctx: coarse, mask: M0}
+  posthoc:    {method: posthoc, gamma: 0.25, delta: 2.0, k: 1, bin_min: 30}
+  wtrace:     {method: wtrace}
+  posthoc_big: {method: posthoc, gamma: 0.25, delta: 2.0, k: 1, bin_min: 30}   # Stage 4: 10k-trace post-hoc release (equal-n next-location)
+  # E3 ablations (small GPT, Porto r9)
+  a_g25_d1:   {method: kgw, gamma: 0.25, delta: 1.0, delta_mid: 0.5, k: 1, bin_min: 30}
+  a_g25_d4:   {method: kgw, gamma: 0.25, delta: 4.0, delta_mid: 2.0, k: 1, bin_min: 30}
+  a_g50_d1:   {method: kgw, gamma: 0.5, delta: 1.0, delta_mid: 0.5, k: 1, bin_min: 30}
+  a_g50_d2:   {method: kgw, gamma: 0.5, delta: 2.0, delta_mid: 1.0, k: 1, bin_min: 30}
+  a_g50_d4:   {method: kgw, gamma: 0.5, delta: 4.0, delta_mid: 2.0, k: 1, bin_min: 30}
+  a_k0:       {method: kgw, gamma: 0.25, delta: 2.0, delta_mid: 1.0, k: 0, bin_min: 30}
+  a_k3:       {method: kgw, gamma: 0.25, delta: 2.0, delta_mid: 1.0, k: 3, bin_min: 30}
+  a_bin0:     {method: kgw, gamma: 0.25, delta: 2.0, delta_mid: 1.0, k: 1, bin_min: 0}
+  a_bin120:   {method: kgw, gamma: 0.25, delta: 2.0, delta_mid: 1.0, k: 1, bin_min: 120}
+  a_1r:       {method: kgw, gamma: 0.25, delta: 2.0, delta_mid: 0.0, k: 1, bin_min: 30, two_res: false}
+  a_ctxmid:   {method: kgw, gamma: 0.25, delta: 2.0, delta_mid: 1.0, k: 1, bin_min: 30, ctx: mid}
+  a_gum_M0:   {method: gumbel, k: 1, bin_min: 30, mask: M0}
+  a_gum_k2:   {method: gumbel, k: 2, bin_min: 30, mask: M1}
+  a_gum_ctxmid: {method: gumbel, k: 1, bin_min: 30, mask: M1, ctx: mid}
+
+releases:                   # E2/E3/E6/E8/E9 (rid = <wm>__k<key>__s<seed>)
+  main:          {gens: [gpt_porto_r9_s0, gpt_geolife_r9_s0], wm: [none, exact_kgw, gm_kgw, gm_gumbel], keys: [0, 1, 2], seeds: [0, 1, 2], n: 10000}
+  trainseeds:    {gens: [gpt_porto_r9_s1, gpt_porto_r9_s2], wm: [none, gm_kgw, gm_gumbel], keys: [0, 1, 2], seeds: [0], n: 5000}
+  resolution:    {gens: [gpt_porto_r8_s0, gpt_porto_r10_s0, gpt_geolife_r8_s0], wm: [none, gm_kgw, gm_gumbel], keys: [0, 1, 2], seeds: [0], n: 5000}
+  ablation:      {gens: [gpt_porto_r9_s0], wm: [a_g25_d1, a_g25_d4, a_g50_d1, a_g50_d2, a_g50_d4, a_k0, gm_kgw_k2, a_k3, a_bin0, a_bin120,
+                                               a_1r, a_ctxmid, a_gum_M0, a_gum_k2, a_gum_ctxmid], keys: [0, 1, 2], seeds: [0], n: 5000}
+  ablation_geolife: {gens: [gpt_geolife_r9_s0], wm: [gm_kgw_k2, a_g50_d2, a_gum_M0], keys: [0, 1, 2], seeds: [0], n: 5000}
+  decode_road:   {gens: [gpt_porto_r9_s0], wm: [gm_kgw, gm_gumbel], keys: [0], seeds: [0], n: 2000, decode: road}
+  llm:           {gens: [qwen15_porto_r9, qwen15_geolife_r9], wm: [none, exact_kgw, gm_kgw, gm_gumbel], keys: [0, 1, 2], seeds: [0], n: 3300}
+  baselines:     {gens: [gpt_porto_r9_s0, gpt_geolife_r9_s0, qwen15_porto_r9], wm: [posthoc, wtrace], keys: [0, 1, 2], seeds: [0], n: 2000}
+  steal:         {gens: [gpt_porto_r9_s0], wm: [gm_kgw, gm_kgw_k2], keys: [0], seeds: [10], n: 101000}
+  steal_rot:     {gens: [gpt_porto_r9_s0], wm: [gm_kgw], keys: [0, 1, 2, 3], seeds: [12], n: 26000}
+  radio:         {gens: [gpt_porto_r9_s0], wm: [gm_kgw, gm_gumbel], keys: [0], seeds: [20], n: 50000}
+  # ---- Stage 4 (completeness) additions ----
+  strong:        {gens: [gpt_porto_r9_s0], wm: [a_g25_d4, a_g50_d4], keys: [0, 1, 2], seeds: [0, 1, 2], n: 5000}   # strong operating points, full attack set (seed 0 = ablation releases)
+  strong_geolife: {gens: [gpt_geolife_r9_s0], wm: [a_g25_d4], keys: [0, 1, 2], seeds: [0, 1, 2], n: 5000}
+  strong_llm:    {gens: [qwen15_porto_r9], wm: [a_g25_d4], keys: [0, 1, 2], seeds: [0], n: 3300}
+  decode_centroid: {gens: [gpt_porto_r9_s0], wm: [gm_kgw, gm_gumbel], keys: [0], seeds: [0], n: 2000, decode: centroid}
+  keymix:        {gens: [gpt_porto_r9_s0, gpt_geolife_r9_s0], wm: [gm_gumbel, gm_kgw], keys: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149], seeds: [0], n: 200}   # P3: key-averaged distribution
+  baselines_big: {gens: [gpt_porto_r9_s0, gpt_geolife_r9_s0], wm: [posthoc_big], keys: [0], seeds: [0], n: 10000}
+  # Stage 4b (2026-10-17): GeoLife keymix added above (gens); LLM key-variability releases (per-key TPR, run_keyvar.py)
+  keyvar_llm:    {gens: [qwen15_porto_r9], wm: [gm_gumbel, gm_kgw], keys: [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111], seeds: [0], n: 200}
+
+gen: {part_size: 2000, top_k: 0, workers: 4, device: cpu, threads: 6}   # small GPT: CPU worker processes (faster than MPS, profiled)
+
+eval:                       # E2-E4
+  n_eval: 2000              # traces per release under attacks ('none' uses all)
+  null_n: 3000              # real test traces per dataset for attack nulls (also map-matched)
+  null_keys: [0, 1, 2]
+  null_schemes: [gm_kgw, gm_gumbel, exact_kgw]
+  J: 1
+  workers: 8
+  regen_wm: [exact_kgw, gm_kgw, gm_gumbel, a_g25_d4, a_g50_d4]
+  attack_sets:
+    main: [none, noise10, noise30, noise100, down2, down3, down5, retime15, retime60, crop25, crop50, splice30, mm, mmrs, noise30+mm, regen]
+    llm: [none, noise10, noise30, noise100, down2, down3, down5, retime15, retime60, crop25, crop50, splice30, mm, mmrs, noise30+mm, regen]
+    baselines: [none, noise10, noise30, noise100, down2, down3, down5, retime15, retime60, crop25, crop50, splice30, mm, mmrs, noise30+mm]
+    default: [none, noise30, noise100, down3, crop50, mm]
+    # Stage 4 additions
+    strong: [none, noise10, noise30, noise100, down2, down3, down5, retime15, retime60, crop25, crop50, splice30, mm, mmrs, noise30+mm, regen]
+    strong_geolife: [none, noise10, noise30, noise100, down2, down3, down5, retime15, retime60, crop25, crop50, splice30, mm, mmrs, noise30+mm, regen]
+    strong_llm: [none, noise10, noise30, noise100, down2, down3, down5, retime15, retime60, crop25, crop50, splice30, mm, mmrs, noise30+mm, regen]
+    ablation: [none, noise30, noise100, down3, crop50, mm, mmrs, noise30+mm, retime15, retime60]
+    ablation_geolife: [none, noise30, noise100, down3, crop50, retime15, retime60]
+    resolution: [none, noise30, noise100, down3, crop50, mm, mmrs, noise30+mm]
+  # Stage 4: real-trace attack nulls for detector configurations that differ from null_schemes (AUC / empirical FPR)
+  null_schemes_extra:
+    porto_r9: [a_g50_d4, a_k0, gm_kgw_k2, a_k3, a_bin0, a_bin120, a_1r, a_ctxmid, a_gum_M0, a_gum_k2, a_gum_ctxmid]
+    geolife_r9: [a_g50_d4, gm_kgw_k2, a_gum_M0]
+  shift: {J: [1, 2, 3], attacks: [none, retime15, retime60], n: 2000}   # Stage 4: bin-shift search radius vs re-timestamping
+  pooled: {sizes: [10, 100, 1000], groups: 20, mix_fracs: [10, 30, 50]}
+
+mapmatch:                   # E4 (LeuvenMapMatching DistanceMatcher on the OSM drive graph)
+  max_dist: 250
+  obs_noise: 50
+  obs_noise_ne: 100
+  dist_noise: 50
+  lattice_width: 6
+  non_emitting: true
+  timeout_s: 60
+  workers: 16
+  chunk: 250
+  n: 1000                   # traces per release (seed 0 releases only)
+  seeds: [0]
+  datasets: [porto, geolife]
+  prefixes: [mm, noise30+mm]
+  sets: [main, llm, baselines, ablation]
+
+calib:                      # E5
+  res: [9]
+  schemes: [gm_kgw, gm_gumbel, exact_kgw]
+  n_traces: 10000
+  n_tests: 100000
+  n_tests_gen: 50000
+  pooled_m: 100
+  pooled_tests: 2000
+  shift_tests: 20000
+  seq_streams: 1000
+  seq_len: 200
+  seq_alpha: [0.05, 0.01]
+  gen_of: {porto_r9: gpt_porto_r9_s0, geolife_r9: gpt_geolife_r9_s0}
+
+calib_ext:                  # Stage 4: more power for borderline cells, other resolutions, gamma = 0.5 (-> results/calibration_ext/)
+  res: [8, 9, 10]
+  schemes: [gm_kgw, gm_gumbel, exact_kgw]
+  schemes_r9_extra: [a_g50_d4]
+  n_tests: 100000
+  n_tests_gen: 200000
+  pooled_tests: 20000
+  gen_of: {porto_r9: gpt_porto_r9_s0, geolife_r9: gpt_geolife_r9_s0, porto_r8: gpt_porto_r8_s0, geolife_r8: gpt_geolife_r8_s0, porto_r10: gpt_porto_r10_s0}
+
+baselines:                  # E6
+  gens: [gpt_porto_r9_s0, gpt_geolife_r9_s0, qwen15_porto_r9]
+  posthoc_rate: 1.0
+  wtrace_n: 1000
+  wtrace_attacks: [none, noise10, noise30, noise100, down2, down3, crop25, crop50, mm, mmrs, noise30+mm]
+  classifier: true
+  clf_train: 5000
+  clf_test: 2000
+  clf_wm: [none, gm_kgw, gm_gumbel]
+
+utility:                    # E7
+  n: 5000
+  n_mem: 500
+  n_mem_ref: 20000
+  nextloc:
+    n_train: 20000
+    n_test: 3000
+    model: {d_model: 192, n_layer: 3, n_head: 4, epochs: 3, batch: 128, lr: 1.0e-3}
+    releases: [gpt_porto_r9_s0/real, gpt_porto_r9_s0/none__k0__s0, gpt_porto_r9_s0/gm_kgw__k0__s0, gpt_porto_r9_s0/gm_gumbel__k0__s0,
+               gpt_porto_r9_s0/exact_kgw__k0__s0, gpt_porto_r9_s0/posthoc__k0__s0, gpt_geolife_r9_s0/real, gpt_geolife_r9_s0/none__k0__s0,
+               gpt_geolife_r9_s0/gm_kgw__k0__s0, gpt_geolife_r9_s0/gm_gumbel__k0__s0,
+               # Stage 4: replicates (keys/seeds 1, 2), equal-n post-hoc, strong operating points; '@N' = first N traces
+               gpt_porto_r9_s0/none__k0__s1, gpt_porto_r9_s0/none__k0__s2, gpt_porto_r9_s0/gm_kgw__k1__s1, gpt_porto_r9_s0/gm_kgw__k2__s2,
+               gpt_porto_r9_s0/gm_gumbel__k1__s1, gpt_porto_r9_s0/gm_gumbel__k2__s2, gpt_porto_r9_s0/exact_kgw__k1__s1, gpt_porto_r9_s0/exact_kgw__k2__s2,
+               gpt_porto_r9_s0/posthoc_big__k0__s0,
+               gpt_geolife_r9_s0/exact_kgw__k0__s0, gpt_geolife_r9_s0/none__k0__s1, gpt_geolife_r9_s0/none__k0__s2, gpt_geolife_r9_s0/gm_kgw__k1__s1, gpt_geolife_r9_s0/gm_kgw__k2__s2,
+               gpt_geolife_r9_s0/gm_gumbel__k1__s1, gpt_geolife_r9_s0/gm_gumbel__k2__s2, gpt_geolife_r9_s0/exact_kgw__k1__s1, gpt_geolife_r9_s0/exact_kgw__k2__s2,
+               gpt_geolife_r9_s0/posthoc_big__k0__s0,
+               gpt_porto_r9_s0/none__k0__s0@5000, gpt_porto_r9_s0/gm_kgw__k0__s0@5000, gpt_porto_r9_s0/a_g25_d4__k0__s0, gpt_porto_r9_s0/a_g25_d4__k1__s1,
+               gpt_porto_r9_s0/a_g25_d4__k2__s2, gpt_porto_r9_s0/a_g50_d4__k0__s0, gpt_porto_r9_s0/a_g50_d4__k1__s1, gpt_porto_r9_s0/a_g50_d4__k2__s2,
+               gpt_porto_r9_s0/none__k0__s1@5000, gpt_porto_r9_s0/none__k0__s2@5000]
+
+steal:                      # E8
+  gen: gpt_porto_r9_s0
+  N: [1000, 10000, 100000]
+  n_prior: 80000
+  n_spoof: 500
+  n_scrub: 1000
+  m_pool: 100
+  scrub_rates: [0.25, 0.5, 1.0]
+  corpora:
+    - {name: k1, wm: gm_kgw, releases: [gm_kgw__k0__s10], keys: [0]}
+    - {name: k2, wm: gm_kgw_k2, releases: [gm_kgw_k2__k0__s10], keys: [0]}
+    - {name: rot4, wm: gm_kgw, releases: [gm_kgw__k0__s12, gm_kgw__k1__s12, gm_kgw__k2__s12, gm_kgw__k3__s12], keys: [0, 1, 2, 3]}
+
+radio:                      # E9
+  teacher: gpt_porto_r9_s0
+  methods: [gm_kgw, gm_gumbel]
+  key: 0
+  wrong_key: 1
+  teacher_seed: 20
+  fracs: [0.0, 0.05, 0.2, 0.5, 1.0]
+  seeds: [0, 1, 2]           # Stage 4: third student seed added (was [0, 1])
+  n_train: 50000
+  n_contexts: 5000
+  n_sample: 2000
+  student: {d_model: 384, n_layer: 6, n_head: 6, epochs: 4, batch: 128, lr: 6.0e-4}
+
+radio_power: {fracs: [0.0, 0.2], n_contexts: 12000, n_sample: 10000, n_keys: 200}   # Stage 4: higher-power E9 re-read of saved students
+
+# Stage 4b (2026-10-17): key variability (src/run_keyvar.py -> results/keyvar/). (a) per-key TPR on the 200-trace
+# releases of many keys (keymix / keyvar_llm); (b) key-CONDITIONAL null FPR: the same real test traces as the eval nulls
+# scored under many fresh keys (keys 2000..), per-trace and pooled (m = 100) tests.
+keyvar:
+  tpr_sets: {gpt_porto_r9_s0: keymix, gpt_geolife_r9_s0: keymix, qwen15_porto_r9: keyvar_llm}
+  tpr_attacks: [none, noise30, down3, crop50]
+  null_cells: [porto_r9, geolife_r9]
+  null_schemes: [gm_kgw, gm_gumbel, exact_kgw]
+  null_key0: 2000
+  null_n_keys: 200
+  pooled_m: 100
+  workers: 8
+
+capacity: {n: 5000, k: [0, 1, 2, 3], bins: [0, 30, 120]}   # E10

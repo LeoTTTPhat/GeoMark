@@ -1,0 +1,23 @@
+{
+ "none": {
+  "auc": 0.9999992500000001,
+  "n_train": 6767,
+  "n_test": 4000,
+  "tpr_at_fpr0.01": 1.0,
+  "tpr_at_fpr0.001": 0.9995
+ },
+ "gm_kgw": {
+  "auc": 1.0,
+  "n_train": 6767,
+  "n_test": 4000,
+  "tpr_at_fpr0.01": 1.0,
+  "tpr_at_fpr0.001": 1.0
+ },
+ "gm_gumbel": {
+  "auc": 1.0,
+  "n_train": 6767,
+  "n_test": 4000,
+  "tpr_at_fpr0.01": 1.0,
+  "tpr_at_fpr0.001": 1.0
+ }
+}

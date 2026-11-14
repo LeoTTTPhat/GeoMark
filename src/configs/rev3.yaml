@@ -1,0 +1,15 @@
+# Stage 10 (round-3 audit fix) additions on top of rev2.yaml (same out_dir results/).
+#  rev3_scrub / rev3_scrub0: 10^4-trace releases for keys 1-4 (key 0 = first 10^4 traces of the rev2 stealing corpora; the
+#    exact+bin 2R scheme also gets a key-0 release) -> multi-key scrubbing with a two-sided and a reference-calibrated test.
+#  rev3_manykey: exact+bin with the two-resolution embedding for the 50-key study (like-for-like with GeoMark-KGW).
+inherit: rev2.yaml
+name: rev3
+
+releases:
+  rev3_scrub:    {gens: [gpt_porto_r9_s0], wm: [gm_kgw, a_k0, exact_kgw_bin, exact_bin_2r, gm_kgw_sn, gm_kgw_k2], keys: [1, 2, 3, 4], seeds: [10], n: 10000}
+  rev3_scrub0:   {gens: [gpt_porto_r9_s0], wm: [exact_bin_2r], keys: [0], seeds: [10], n: 10000}
+  rev3_manykey:  {gens: [gpt_porto_r9_s0], wm: [exact_bin_2r], keys: [300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322, 323, 324, 325, 326, 327, 328, 329, 330, 331, 332, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349], seeds: [0], n: 1000}
+
+eval:
+  attack_sets:
+    rev3_manykey: [none, mm]

@@ -1,0 +1,25 @@
+{
+ "gen": "gpt_porto_r9_s0",
+ "wm": "exact_kgw",
+ "scheme": {
+  "method": "exact_kgw",
+  "res": 9,
+  "gamma": 0.25,
+  "delta": 2.0,
+  "delta_mid": 1.0,
+  "k": 1,
+  "bin_min": 30,
+  "ctx": "coarse",
+  "mask": "M0",
+  "two_res": false,
+  "coarse_off": 2,
+  "eos_neutral": false
+ },
+ "key": 343,
+ "seed": 0,
+ "n": 1000,
+ "decode": "uniform",
+ "dataset": "porto",
+ "res": 9,
+ "sec": 2.4374468326568604
+}

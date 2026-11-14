@@ -1,0 +1,4 @@
+# Stage 10: map-matching of 200 traces per key for the 50-key exact+bin 2R releases (same as rev2_mm200.yaml).
+inherit: rev3.yaml
+name: rev3_mm200
+mapmatch: {n: 200, prefixes: [mm]}

@@ -1,0 +1,24 @@
+{
+ "gen": "qwen15_porto_r9",
+ "wm": "exact_kgw",
+ "scheme": {
+  "method": "exact_kgw",
+  "res": 9,
+  "gamma": 0.25,
+  "delta": 2.0,
+  "delta_mid": 1.0,
+  "k": 1,
+  "bin_min": 30,
+  "ctx": "coarse",
+  "mask": "M0",
+  "two_res": false,
+  "coarse_off": 2
+ },
+ "key": 1,
+ "seed": 0,
+ "n": 3300,
+ "decode": "uniform",
+ "dataset": "porto",
+ "res": 9,
+ "sec": 264.48645877838135
+}

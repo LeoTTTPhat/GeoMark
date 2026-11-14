@@ -1,0 +1,16 @@
+{
+ "gm_kgw": {
+  "median_pairs_per_trip": 16.0,
+  "mean_pairs_per_trip": 19.036666666666665,
+  "median_pairs_per_100pool": 1779.0,
+  "n_trips": 6000,
+  "n_pools": 60
+ },
+ "gm_kgw_sn": {
+  "median_pairs_per_trip": 12.0,
+  "mean_pairs_per_trip": 13.998666666666667,
+  "median_pairs_per_100pool": 1311.0,
+  "n_trips": 6000,
+  "n_pools": 60
+ }
+}

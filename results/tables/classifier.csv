@@ -1,0 +1,10 @@
+gen,wm,auc,n_train,n_test,tpr_at_fpr0.01,tpr_at_fpr0.001
+classifier_gpt_geolife_r9_s0,none,0.9999992500000001,6767,4000,1.0,0.9995
+classifier_gpt_geolife_r9_s0,gm_kgw,1.0,6767,4000,1.0,1.0
+classifier_gpt_geolife_r9_s0,gm_gumbel,1.0,6767,4000,1.0,1.0
+classifier_gpt_porto_r9_s0,none,0.9999994999999999,10000,4000,1.0,1.0
+classifier_gpt_porto_r9_s0,gm_kgw,0.99999625,10000,4000,1.0,0.999
+classifier_gpt_porto_r9_s0,gm_gumbel,0.9999994999999999,10000,4000,1.0,1.0
+classifier_qwen15_porto_r9,none,0.9999994999999999,6300,4000,1.0,1.0
+classifier_qwen15_porto_r9,gm_kgw,0.9999607500000001,6300,4000,0.9995,0.9995
+classifier_qwen15_porto_r9,gm_gumbel,0.999969375,6300,4000,0.999,0.999

@@ -1,0 +1,138 @@
+# Smoke test: tiny subsets and the smallest models, exercising every pipeline step end to end.
+name: smoke
+out_dir: results/smoke
+data_dir: results/smoke/data
+model_dir: models/smoke
+fig_dir: results/smoke/figures
+datasets: [porto, geolife]
+
+data:
+  res: [8, 9, 10]
+  max_tok: 120
+  min_tok: 5
+  porto: {frac: 0.10, max_rows: 60000, max_traces: 4000, min_pts: 10, dt: 15}
+  geolife: {dt: 5, gap_min: 20, min_pts: 10, max_users: 12, max_traces: 2500}
+
+_gpt: &gpt {type: gpt, d_model: 64, n_layer: 2, n_head: 2, epochs: 2, batch: 64, lr: 2.0e-3, max_train: 3000, gen_batch: 128}
+generators:
+  gpt_porto_r9_s0:   {<<: *gpt, dataset: porto, res: 9, train_seed: 0, max_len: 126}
+  gpt_geolife_r9_s0: {<<: *gpt, dataset: geolife, res: 9, train_seed: 0, max_len: 126}
+  lm05_porto_r9:   {type: qwen, base: Qwen/Qwen2.5-0.5B-Instruct, dataset: porto, res: 9, max_len: 126, max_train: 400, epochs: 1,
+                      batch: 8, eff_batch: 8, lr: 5.0e-4, lora_r: 8, dtype: float32, gen_workers: 1, gen_device: mps, gen_batch: 32, max_steps: 30, ckpt_every: 10, n_val: 64}
+
+wm:
+  none:       {method: none}
+  exact_kgw:  {method: exact_kgw, gamma: 0.25, delta: 2.0, two_res: false}
+  gm_kgw:     {method: kgw, gamma: 0.25, delta: 2.0, delta_mid: 1.0, k: 1, bin_min: 30, ctx: coarse, mask: M0}
+  gm_gumbel:  {method: gumbel, k: 1, bin_min: 30, ctx: coarse, mask: M1}
+  gm_kgw_k2:  {method: kgw, gamma: 0.25, delta: 2.0, delta_mid: 1.0, k: 2, bin_min: 30, ctx: coarse, mask: M0}
+  posthoc:    {method: posthoc, gamma: 0.25, delta: 2.0, k: 1, bin_min: 30}
+  wtrace:     {method: wtrace}
+  a_g50_d2:   {method: kgw, gamma: 0.5, delta: 2.0, delta_mid: 1.0, k: 1, bin_min: 30}
+  a_gum_M0:   {method: gumbel, k: 1, bin_min: 30, mask: M0}
+  a_ctxmid:   {method: kgw, gamma: 0.25, delta: 2.0, delta_mid: 1.0, k: 1, bin_min: 30, ctx: mid}
+
+releases:
+  main:        {gens: [gpt_porto_r9_s0, gpt_geolife_r9_s0], wm: [none, exact_kgw, gm_kgw, gm_gumbel], keys: [0, 1], seeds: [0, 1], n: 200}
+  ablation:    {gens: [gpt_porto_r9_s0], wm: [a_g50_d2, a_gum_M0, a_ctxmid, gm_kgw_k2], keys: [0], seeds: [0], n: 150}
+  decode_road: {gens: [gpt_porto_r9_s0], wm: [gm_kgw], keys: [0], seeds: [0], n: 60, decode: road}
+  llm:         {gens: [lm05_porto_r9], wm: [none, exact_kgw, gm_kgw, gm_gumbel], keys: [0], seeds: [0], n: 48}
+  baselines:   {gens: [gpt_porto_r9_s0], wm: [posthoc, wtrace], keys: [0], seeds: [0], n: 150}
+  steal:       {gens: [gpt_porto_r9_s0], wm: [gm_kgw, gm_kgw_k2], keys: [0], seeds: [10], n: 700}
+  steal_rot:   {gens: [gpt_porto_r9_s0], wm: [gm_kgw], keys: [0, 1], seeds: [12], n: 400}
+  radio:       {gens: [gpt_porto_r9_s0], wm: [gm_kgw, gm_gumbel], keys: [0], seeds: [20], n: 1500}
+
+gen: {part_size: 100, top_k: 0, workers: 2, device: cpu, threads: 2}
+
+eval:
+  n_eval: 60
+  null_n: 120
+  null_keys: [0, 1]
+  null_schemes: [gm_kgw, gm_gumbel, exact_kgw]
+  J: 1
+  workers: 4
+  regen_wm: [gm_kgw, gm_gumbel, exact_kgw]
+  attack_sets:
+    main: [none, noise10, noise30, noise100, down2, down3, down5, retime15, retime60, crop25, crop50, splice30, mm, mmrs, noise30+mm, regen]
+    llm: [none, noise30, down3, crop50, mm, regen]
+    baselines: [none, noise30, down3, crop50, mm, mmrs]
+    default: [none, noise30, noise100, down3, crop50, mm]
+  pooled: {sizes: [10, 50], groups: 4, mix_fracs: [30]}
+
+mapmatch:
+  max_dist: 250
+  obs_noise: 50
+  obs_noise_ne: 100
+  dist_noise: 50
+  lattice_width: 6
+  non_emitting: true
+  timeout_s: 60
+  workers: 4
+  chunk: 30
+  n: 40
+  seeds: [0]
+  datasets: [porto, geolife]
+  prefixes: [mm, noise30+mm]
+  sets: [main, llm, baselines, ablation]
+
+calib:
+  res: [9]
+  schemes: [gm_kgw, gm_gumbel, exact_kgw]
+  n_traces: 400
+  n_tests: 10000
+  n_tests_gen: 4000
+  pooled_m: 50
+  pooled_tests: 300
+  shift_tests: 2000
+  seq_streams: 200
+  seq_len: 100
+  seq_alpha: [0.05]
+  gen_of: {porto_r9: gpt_porto_r9_s0, geolife_r9: gpt_geolife_r9_s0}
+
+baselines:
+  gens: [gpt_porto_r9_s0]
+  posthoc_rate: 1.0
+  wtrace_n: 40
+  wtrace_attacks: [none, noise10, noise30, down2, crop25, mm, mmrs]
+  classifier: true
+  clf_train: 150
+  clf_test: 150
+  clf_wm: [none, gm_kgw]
+
+utility:
+  n: 200
+  n_mem: 100
+  n_mem_ref: 2000
+  nextloc:
+    n_train: 400
+    n_test: 200
+    model: {d_model: 64, n_layer: 2, n_head: 2, epochs: 1, batch: 64, lr: 2.0e-3}
+    releases: [gpt_porto_r9_s0/real, gpt_porto_r9_s0/none__k0__s0, gpt_porto_r9_s0/gm_kgw__k0__s0]
+
+steal:
+  gen: gpt_porto_r9_s0
+  N: [100, 600]
+  n_prior: 2000
+  n_spoof: 60
+  n_scrub: 100
+  m_pool: 20
+  scrub_rates: [0.5, 1.0]
+  corpora:
+    - {name: k1, wm: gm_kgw, releases: [gm_kgw__k0__s10], keys: [0]}
+    - {name: k2, wm: gm_kgw_k2, releases: [gm_kgw_k2__k0__s10], keys: [0]}
+    - {name: rot2, wm: gm_kgw, releases: [gm_kgw__k0__s12, gm_kgw__k1__s12], keys: [0, 1]}
+
+radio:
+  teacher: gpt_porto_r9_s0
+  methods: [gm_kgw, gm_gumbel]
+  key: 0
+  wrong_key: 1
+  teacher_seed: 20
+  fracs: [0.0, 1.0]
+  seeds: [0]
+  n_train: 1500
+  n_contexts: 300
+  n_sample: 200
+  student: {d_model: 64, n_layer: 2, n_head: 2, epochs: 2, batch: 64, lr: 2.0e-3}
+
+capacity: {n: 500, k: [0, 1, 2], bins: [0, 30]}
